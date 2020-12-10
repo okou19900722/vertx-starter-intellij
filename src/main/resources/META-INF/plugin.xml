@@ -1,0 +1,25 @@
+<idea-plugin>
+    <id>tk.okou.vertx.starter</id>
+    <name>vertx-starter</name>
+    <version>1.0</version>
+    <vendor email="ilayan19900722@gmail.com" url="https://github.com/okou19900722">okou19900722</vendor>
+    <description><![CDATA[
+        一个用来创建vert.x项目的插件，
+        a plugin to create vertx project
+    ]]></description>
+    <change-notes><![CDATA[
+        <strong>1.0.5</strong>
+        <ul>
+            <li>支持离线创建</li>
+            <li>supported offline</li>
+        </ul>
+    ]]></change-notes>
+    <idea-version since-build="173.0"/>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <moduleType id="Vertx.Starter" implementationClass="tk.okou.vertx.plugin.idea.VertxModuleType"/>
+    </extensions>
+
+</idea-plugin>
