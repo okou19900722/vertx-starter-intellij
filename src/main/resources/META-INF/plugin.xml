@@ -14,7 +14,7 @@
             <li>supported offline</li>
         </ul>
     ]]></change-notes>
-    <idea-version since-build="173.0"/>
+    <idea-version since-build="183.4"/>
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
 

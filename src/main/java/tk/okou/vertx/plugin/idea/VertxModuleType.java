@@ -2,12 +2,14 @@ package tk.okou.vertx.plugin.idea;
 
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.util.IconLoader;
+import io.vertx.core.Vertx;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType;
 
 import javax.swing.*;
 
 public class VertxModuleType extends ModuleType<VertxModuleBuilder> {
+    Vertx vertx = Vertx.vertx();
     static Icon MODULE_ICON = IconLoader.getIcon("/META-INF/icons/vertx.svg");
 
     public VertxModuleType() {
