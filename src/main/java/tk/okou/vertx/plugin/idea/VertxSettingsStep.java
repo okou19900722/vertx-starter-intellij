@@ -2,12 +2,14 @@ package tk.okou.vertx.plugin.idea;
 
 import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.ide.util.projectWizard.SettingsStep;
+import com.intellij.ide.util.projectWizard.WizardContext;
+import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBTextField;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.util.ui.JBUI;
-import javafx.scene.control.CheckBox;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +22,23 @@ public class VertxSettingsStep extends ModuleWizardStep {
         panel = new JPanel(new GridBagLayout());
 //        CheckboxGroup
         ButtonGroup group = new ButtonGroup();
-        JCheckBox onlineCheckbox = new JBCheckBox("Create from start.vertx.io", true);
-        JCheckBox offlineCheckbox = new JBCheckBox("Create from Local template", true);
+        JCheckBox onlineCheckbox = new JBCheckBox("Online", false);
+        JCheckBox offlineCheckbox = new JBCheckBox("Offline", true);
+
+        onlineCheckbox.addActionListener(e -> {
+            ProgressManager.getInstance().run(new Task.Modal(content.getProject(), "Loading Metadata From Server", false) {
+                @Override
+                public void run(@NotNull ProgressIndicator indicator) {
+                    indicator.setText("loading metadata from start.vertx.io");
+                    try {
+                        builder.initFromServer().toCompletionStage().toCompletableFuture().get();
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        });
+
         group.add(onlineCheckbox);
         group.add(offlineCheckbox);
         JPanel p1 = new JPanel(new BorderLayout());
@@ -36,6 +53,9 @@ public class VertxSettingsStep extends ModuleWizardStep {
         settingsStep.addSettingsField("Artifact Id", new JBTextField(builder.artifactId));
 
     }
+
+
+
     @Override
     public JComponent getComponent() {
         return panel;

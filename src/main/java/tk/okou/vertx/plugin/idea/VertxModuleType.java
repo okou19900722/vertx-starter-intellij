@@ -17,7 +17,7 @@ public class VertxModuleType extends ModuleType<VertxModuleBuilder> {
     @NotNull
     @Override
     public VertxModuleBuilder createModuleBuilder() {
-        return new VertxModuleBuilder();
+        return new VertxModuleBuilder(this);
     }
 
     @NotNull

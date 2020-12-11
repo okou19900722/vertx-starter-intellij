@@ -35,3 +35,8 @@ intellij {
     pluginName = "xxxPlugin"
     setPlugins("coverage")
 }
+
+dependencies {
+    compile("io.vertx:vertx-core:4.0.0")
+    compile("io.vertx:vertx-web-client:4.0.0")
+}
