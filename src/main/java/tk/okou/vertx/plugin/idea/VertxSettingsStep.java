@@ -14,7 +14,9 @@ import java.awt.*;
 
 public class VertxSettingsStep extends ModuleWizardStep {
     private JPanel panel;
+    private WizardContext content;
     public VertxSettingsStep(SettingsStep settingsStep, VertxModuleBuilder builder) {
+        this.content = settingsStep.getContext();
         panel = new JPanel(new GridBagLayout());
 //        CheckboxGroup
         ButtonGroup group = new ButtonGroup();
@@ -22,9 +24,10 @@ public class VertxSettingsStep extends ModuleWizardStep {
         JCheckBox offlineCheckbox = new JBCheckBox("Create from Local template", true);
         group.add(onlineCheckbox);
         group.add(offlineCheckbox);
-        JPanel p1 = new JPanel(new GridLayout(1, 2, 0, 0));
-        p1.add(onlineCheckbox);
-        p1.add(offlineCheckbox);
+        JPanel p1 = new JPanel(new BorderLayout());
+        p1.add(onlineCheckbox, BorderLayout.WEST);
+        p1.add(offlineCheckbox, BorderLayout.CENTER);
+
         settingsStep.addSettingsField("Mode", p1);
         settingsStep.addSettingsField("Version", new ComboBox<>(builder.versionsModel));
         settingsStep.addSettingsField("Language", new ComboBox<>(builder.languagesModel));
